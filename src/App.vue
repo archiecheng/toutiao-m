@@ -2,7 +2,7 @@
  * @Author: Archie
  * @Date: 2022-01-23 15:32:46
  * @LastEditors: Archie
- * @LastEditTime: 2022-01-24 14:55:13
+ * @LastEditTime: 2022-01-24 16:08:50
  * @FilePath: /Projects/toutiao-m/src/App.vue
 -->
 <template>
@@ -11,6 +11,20 @@
     <!-- 路由的出口 -->
     <router-view/>
     <h1>头条</h1>
+    <div>
+      <i class="toutiao toutiao-shipin"></i>
+    </div>
+
+    <van-button type="primary">主要按钮</van-button>
+    <van-button type="info">信息按钮</van-button>
+    <van-button type="default">默认按钮</van-button>
+    <van-button type="warning">警告按钮</van-button>
+    <van-button type="danger">危险按钮</van-button>
+
+    <van-cell-group>
+      <van-cell title="单元格" value="内容" />
+      <van-cell title="单元格" value="内容" label="描述信息" />
+    </van-cell-group>
   </div>
 </template>
 <script>

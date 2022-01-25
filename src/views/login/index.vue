@@ -2,13 +2,15 @@
  * @Author: Archie
  * @Date: 2022-01-24 16:53:54
  * @LastEditors: Archie
- * @LastEditTime: 2022-01-24 22:27:12
+ * @LastEditTime: 2022-01-25 15:52:12
  * @FilePath: /Projects/toutiao-m/src/views/login/index.vue
 -->
 <template>
     <div class="login-container">
         <!-- 导航栏 -->
-        <van-nav-bar title="登陆" class="page-nav-bar"/>
+        <van-nav-bar title="登陆" class="page-nav-bar">
+          <van-icon name="cross" slot="left" @click="$router.back()"/>
+        </van-nav-bar>
         <!-- /导航栏 -->
 
         <!-- 登陆表单 -->
@@ -112,6 +114,9 @@ export default {
         const { data } = await login(user)
         this.$store.commit('setUser', data.data)
         this.$toast.success('登陆成功')
+        // 登陆成功，跳转回原来页面
+        // back 的方式不严谨，后面讲功能优化的时候再说
+        this.$router.back()
       } catch (err) {
         if (err.response.status === 400) {
           this.$toast.fail('手机号或验证码错误')

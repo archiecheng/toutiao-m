@@ -2,12 +2,12 @@
  * @Author: Archie
  * @Date: 2022-01-23 15:32:46
  * @LastEditors: Archie
- * @LastEditTime: 2022-01-24 22:15:57
+ * @LastEditTime: 2022-01-25 13:46:54
  * @FilePath: /Projects/toutiao-m/src/store/index.js
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getItem, setItem } from '@utils/storage'
+import { getItem, setItem } from '@/utils/storage'
 
 Vue.use(Vuex)
 

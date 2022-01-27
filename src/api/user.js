@@ -2,7 +2,7 @@
  * @Author: Archie
  * @Date: 2022-01-24 17:55:13
  * @LastEditors: Archie
- * @LastEditTime: 2022-01-25 16:47:09
+ * @LastEditTime: 2022-01-26 13:52:21
  * @FilePath: /Projects/toutiao-m/src/api/user.js
  */
 /* 用户相关请求模块 */
@@ -32,6 +32,22 @@ export const getUserInfo = () => {
     return request({
         method: 'GET',
         url: `/v1_0/user`
+            // 发送请求头数据
+            // headers: {
+            //     // 注：该接口需要授权才能访问
+            //     // token的数据格式 Bearer token数据，注意 Bearer后面有一个空格
+            //     Authorization: `Bearer ${store.state.user.token}`
+            // }
+    })
+}
+
+/*
+      获取用户频道列表
+    */
+export const getUserChannels = () => {
+    return request({
+        method: 'GET',
+        url: `/v1_0/user/channels`
             // 发送请求头数据
             // headers: {
             //     // 注：该接口需要授权才能访问

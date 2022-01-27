@@ -2,86 +2,84 @@
  * @Author: Archie
  * @Date: 2022-01-25 14:08:14
  * @LastEditors: Archie
- * @LastEditTime: 2022-01-25 14:08:15
+ * @LastEditTime: 2022-01-27 13:22:34
  * @FilePath: /Projects/toutiao-m/src/views/home/index.vue
 -->
 <template>
-  <div class="home-container">首页</div>
+  <div class="home-container">
+    <!-- 导航栏 -->
+        <van-nav-bar class="page-nav-bar" fixed>
+          <van-button 
+            class="search-btn"
+            slot="title"
+            type="info"
+            size="small"
+            round
+            icon="search"
+          >搜索</van-button>
+        </van-nav-bar>
+        <!-- /导航栏 -->
+
+        <!-- 频道列表 -->
+        <!-- 通过 v-model 绑定当前激活标签对应的索引值，默认情况下启用第一个标签 -->
+        <van-tabs class="channel-tabs" v-model="active" animated swipeable>
+          <van-tab 
+            :title="channel.name"
+            v-for="channel in channels"
+            :key = "channel.id"
+          >
+          <!-- 文章列表 -->
+          <article-list :channel="channel"/>
+          <!-- / 文章列表 -->
+          </van-tab>
+          <div slot="nav-right" class="placeholder"></div>
+          <div slot="nav-right" class="hamburger-btn">
+            <i class="toutiao toutiao-gengduo"></i>
+          </div>
+        </van-tabs>
+        <!-- /频道列表 -->
+  </div>
 </template>
 
 <script>
+import { getUserChannels } from '@/api/user'
+import ArticleList from './components/article-list'
+
 export default {
   // 组件名称
   name: 'HomeIndex',
   // 组件参数 接收来自父组件的数据
   props: {},
   // 局部注册的组件
-  components: {},
+  components: {
+    ArticleList
+  },
   // 组件状态值
   data () {
-    return {}
+    return {
+      active: 0,
+      channels: [] // 频道列表
+    }
   },
   // 计算属性
   computed: {},
   // 侦听器
   watch: {},
+  created() {
+    this.loadChannels()
+  },
   // 组件方法
-  methods: {},
-  // 以下是生命周期钩子   注：没用到的钩子请自行删除
-  /**
-  * 在实例初始化之后，组件属性计算之前，如data属性等
-  */
-  beforeCreate () {
+  methods: {
+    loadChannels: async function () {
+      try {
+        const { data } = await getUserChannels()
+        this.channels = data.data.channels
+        console.log(data)
+      } catch (error) {
+        this.$toast('获取频道数据失败')
+      }
+    }
   },
-  /**
-  * 组件实例创建完成，属性已绑定，但DOM还未生成，$ el属性还不存在
-  */
-  created () {
-  },
-  /**
-  * 在挂载开始之前被调用：相关的 render 函数首次被调用。
-  */
-  beforeMount () {
-  },
-  /**
-  * el 被新创建的 vm.$ el 替换，并挂载到实例上去之后调用该钩子。
-  * 如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$ el 也在文档内。
-  */
-  mounted () {
-  },
-  /**
-  * 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。
-  * 你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。
-  */
-  beforeUpdate () {
-  },
-  /**
-  * 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。
-  * 当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。
-  */
-  updated () {
-  },
-  /**
-  * keep-alive 组件激活时调用。 仅针对keep-alive 组件有效
-  */
-  activated () {
-  },
-  /**
-  * keep-alive 组件停用时调用。 仅针对keep-alive 组件有效
-  */
-  deactivated () {
-  },
-  /**
-  * 实例销毁之前调用。在这一步，实例仍然完全可用。
-  */
-  beforeDestroy () {
-  },
-  /**
-  * Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，
-  * 所有的事件监听器会被移除，所有的子实例也会被销毁。
-  */
-  destroyed () {
-  }
 }
 </script>
 
@@ -90,5 +88,79 @@ export default {
 <!--然而子组件的根节点元素会同时被设置了scoped的父css样式和设置了scoped的子css样式影响，-->
 <!--这么设计的目的是父组件可以对子组件根元素进行布局。-->
 <style scoped lang="less">
+  .home-container {
+    padding-top: 87px;
+    padding-bottom: 50px;
+    // TODO
+    /deep/ .van-nav-bar__title {
+      max-width: unset;
+    }
+    .search-btn {
+      width: 275px;
+      height: 32px;
+      background-color: #5babfb;
+      border: none;
+      font-size: 14px;
+      .van-icon {
+        font-size: 16px;
+      }
+    }
+    /deep/ .channel-tabs {
+      .van-tabs__wrap {
+        height: 41px;
+        position: fixed;
+        top: 46px;
+        z-index: 1;
+        left: 0;
+        right: 0;
+      }
+      .van-tab {
+        min-width: 100px;
+        border-right: 1px solid #edeff3;
+        font-size: 15px;
+        color: #777777;
+      }
+      .van-tab--active {
+        color: #333333;
+      }
+      .van-tabs__nav {
+        padding-bottom: 0;
+      }
+      .van-tabs__line {
+        bottom: 4px;
+        width: 16px !important;
+        height: 3px;
+        background-color: #3296fa;
+      }
+      .placeholder {
+        width: 33px;
+        height: 41px;
+        flex-shrink: 0;
+      }
+      .hamburger-btn {
+        position: fixed;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 33px;
+        height: 41px;
+        background-color: #fff;
+        opacity: 0.902;
+        i.toutiao {
+          font-size: 16px;
+        }
+        &:before {
+          content:"";
+          position: absolute;
+          left: 0;
+          width: 1px;
+          height: 100%;
+          background: url('~@/assets/gradient-gray-line.png');
+          background-size: contain;
+        }
+      }
+    }
+  }
 
 </style>

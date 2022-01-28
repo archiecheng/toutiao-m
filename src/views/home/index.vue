@@ -2,7 +2,7 @@
  * @Author: Archie
  * @Date: 2022-01-25 14:08:14
  * @LastEditors: Archie
- * @LastEditTime: 2022-01-27 22:31:38
+ * @LastEditTime: 2022-01-28 11:56:04
  * @FilePath: /Projects/toutiao-m/src/views/home/index.vue
 -->
 <template>
@@ -16,6 +16,7 @@
             size="small"
             round
             icon="search"
+            to="/search"
           >搜索</van-button>
         </van-nav-bar>
         <!-- /导航栏 -->
@@ -65,7 +66,6 @@ import { getUserChannels } from '@/api/user'
 import ArticleList from './components/article-list'
 import ChannelEdit from './components/channel-edit'
 import { mapState } from 'vuex'
-import channelEditVue from './components/channel-edit.vue'
 import { getItem } from '@/utils/storage'
 
 export default {

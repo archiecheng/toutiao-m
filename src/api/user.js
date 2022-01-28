@@ -2,7 +2,7 @@
  * @Author: Archie
  * @Date: 2022-01-24 17:55:13
  * @LastEditors: Archie
- * @LastEditTime: 2022-01-26 13:52:21
+ * @LastEditTime: 2022-01-28 19:43:14
  * @FilePath: /Projects/toutiao-m/src/api/user.js
  */
 /* 用户相关请求模块 */
@@ -54,5 +54,28 @@ export const getUserChannels = () => {
             //     // token的数据格式 Bearer token数据，注意 Bearer后面有一个空格
             //     Authorization: `Bearer ${store.state.user.token}`
             // }
+    })
+}
+
+/*
+      关注用户
+    */
+export const addFollow = (target) => {
+    return request({
+        method: 'POST',
+        url: `/v1_0/user/followings`,
+        data: {
+            target
+        }
+    })
+}
+
+/*
+      取消关注用户
+    */
+export const deleteFollow = (target) => {
+    return request({
+        method: 'DELETE',
+        url: `/v1_0/user/followings/${target}`,
     })
 }

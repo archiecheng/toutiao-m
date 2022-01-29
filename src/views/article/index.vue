@@ -2,7 +2,7 @@
  * @Author: Archie
  * @Date: 2022-01-28 14:59:57
  * @LastEditors: Archie
- * @LastEditTime: 2022-01-28 21:26:17
+ * @LastEditTime: 2022-01-29 14:28:43
  * @FilePath: /Projects/toutiao-m/src/views/article/index.vue
 -->
   <template>
@@ -86,6 +86,15 @@
           ref="article-content"
           ></div>
         <van-divider>正文结束</van-divider>
+        <!-- 文章评论列表 -->
+        <comment-list 
+          :source="article.art_id"
+          @onload-success="totalCommentCount = $event.total_count"
+          :list="commentList"
+        />
+
+        <!-- /文章评论列表 -->
+
         <!-- 底部区域 -->
         <div class="article-bottom">
           <van-button
@@ -93,10 +102,11 @@
             type="default"
             round
             size="small"
+            @click="isPostShow = true"
           >写评论</van-button>
           <van-icon
             name="comment-o"
-            badge="123"
+            :badge="totalCommentCount"
             color="#777"
           />
           <collect-article 
@@ -112,6 +122,17 @@
           <van-icon name="share" color="#777777"></van-icon>
         </div>
         <!-- /底部区域 -->
+        <!-- 发布评论的弹出层 -->
+        <van-popup 
+          v-model="isPostShow" 
+          position="bottom" 
+        >
+        <comment-post 
+          :target="article.art_id"
+          @post-success="onPostSuccess"
+        />
+        </van-popup>
+        <!-- /发布评论的弹出层 -->
       </div>
       <!-- /加载完成-文章详情 -->
 
@@ -142,7 +163,8 @@ import { ImagePreview } from 'vant';
 import FollowUser from '@/components/follow-user'
 import CollectArticle from '@/components/collect-article'
 import LikeArticle from '@/components/like-article'
-
+import CommentList from './components/comment-list'
+import CommentPost from './components/comment-post'
 
 export default {
   // 组件名称
@@ -158,7 +180,9 @@ export default {
   components: {
     FollowUser,
     CollectArticle,
-    LikeArticle
+    LikeArticle,
+    CommentList,
+    CommentPost
   },
   // 组件状态值
   data () {
@@ -166,7 +190,10 @@ export default {
       article: {}, // 文章详情
       loading:true, // 加载中的loading状态
       errorStatus: 0, // 失败的状态码
-      followLoading:false
+      followLoading:false,
+      totalCommentCount:0,
+      isPostShow:false, // 控制发布评论的状态
+      commentList:[] // 评论列表
     }
   },
   // 计算属性
@@ -220,6 +247,12 @@ export default {
           }
       })
     },
+    onPostSuccess (data) {
+      // 关闭弹出层n
+      this.isPostShow = false
+      // 将发布内容显示到列表顶部
+      this.commentList.unshift(data.new_obj)
+    }
 
   },
 }

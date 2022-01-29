@@ -79,3 +79,24 @@ export const deleteFollow = (target) => {
         url: `/v1_0/user/followings/${target}`,
     })
 }
+
+/*
+      获取当前登陆用户的个人资料
+    */
+export const getUserProfile = (target) => {
+    return request({
+        method: 'GET',
+        url: '/v1_0/user/profile'
+    })
+}
+
+/*
+      更新户的个人资料
+    */
+export const updateUserProfile = (data) => {
+    return request({
+        method: 'PATCH',
+        url: '/v1_0/user/profile',
+        data
+    })
+}

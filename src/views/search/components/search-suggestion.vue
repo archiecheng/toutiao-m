@@ -7,7 +7,7 @@
 -->
 <template>
   <div class="search-suggestion">
-      <van-cell 
+      <van-cell
         icon="search"
         v-for="(text,index) in suggestions"
         :key = "index"
@@ -28,9 +28,9 @@ export default {
   name: 'SearchSuggestion',
   // 组件参数 接收来自父组件的数据
   props: {
-    searchText:{
-      type:String,
-      required:true
+    searchText: {
+      type: String,
+      required: true
     }
   },
   // 局部注册的组件
@@ -38,7 +38,7 @@ export default {
   // 组件状态值
   data () {
     return {
-      suggestions:[]  // 联想建议数据列表
+      suggestions: [] // 联想建议数据列表
     }
   },
   // 计算属性
@@ -57,10 +57,10 @@ export default {
       // 返回值: 防抖之后的函数
       handler: debounce(function (value) {
         this.loadSearchSuggestions(value)
-      },300),
-    //   handler (value) {
-    //     this.loadSearchSuggestions(value)
-    //   },
+      }, 300),
+      //   handler (value) {
+      //     this.loadSearchSuggestions(value)
+      //   },
       immediate: true // 该回调将会在侦听开始之后被立即调用
     }
   },
@@ -86,7 +86,7 @@ export default {
     }
   }
 }
-</script> 
+</script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->
 <!--然而子组件的根节点元素会同时被设置了scoped的父css样式和设置了scoped的子css样式影响，-->

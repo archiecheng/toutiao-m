@@ -105,7 +105,6 @@ export default {
     if (this.user) {
       this.loadUserInfo()
     }
-    
   },
   // 组件方法
   methods: {
@@ -113,17 +112,16 @@ export default {
       // 退出提示
       // 在组件中需要使用 this.$dialog 来调用弹框组件
       this.$dialog.confirm({
-        title: '确认退出吗',
+        title: '确认退出吗'
       }).then(() => {
-          // on confirm
-          console.log('确认执行这里')
-          // 确认退出: 清除登陆状态 (容器中的 user + 本地存储中的 user)
-          this.$store.commit('setUser',null)
-        }).catch(() => {
-          // on cancel
-          console.log('取消执行这里')
-        })
-
+        // on confirm
+        console.log('确认执行这里')
+        // 确认退出: 清除登陆状态 (容器中的 user + 本地存储中的 user)
+        this.$store.commit('setUser', null)
+      }).catch(() => {
+        // on cancel
+        console.log('取消执行这里')
+      })
     },
     loadUserInfo: async function () {
       try {

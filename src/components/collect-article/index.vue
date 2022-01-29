@@ -23,21 +23,21 @@ export default {
   name: 'CollectArticle',
   // 组件参数 接收来自父组件的数据
   props: {
-      value: {
-          type:Boolean,
-          required:true
-      },
-      articleId: {
-          type:[Number,String,Object],
-          required:true
-      }
+    value: {
+      type: Boolean,
+      required: true
+    },
+    articleId: {
+      type: [Number, String, Object],
+      required: true
+    }
   },
   // 局部注册的组件
   components: {},
   // 组件状态值
   data () {
     return {
-        loading:false
+      loading: false
     }
   },
   // 计算属性
@@ -46,28 +46,28 @@ export default {
   watch: {},
   // 组件方法
   methods: {
-      async onCollect () {
-          this.loading = true
-          try {
-              if (this.value) {
-                //   已收藏，取消收藏
-                await deleteCollect(this.articleId)
-              } else {
-                //   取消收藏，添加收藏
-                await addCollect(this.articleId)
-              }
-            //   更新视图
-            // 自定义事件修改数据并不是立即的
-            this.$emit('input',!this.value)
-            this.$toast.success(!this.value ? '收藏成功' : '取消收藏')
-          } catch (error) {
-              this.$toast('操作失败，请重试')
-          }
-          this.loading = false
+    async onCollect () {
+      this.loading = true
+      try {
+        if (this.value) {
+          //   已收藏，取消收藏
+          await deleteCollect(this.articleId)
+        } else {
+          //   取消收藏，添加收藏
+          await addCollect(this.articleId)
+        }
+        //   更新视图
+        // 自定义事件修改数据并不是立即的
+        this.$emit('input', !this.value)
+        this.$toast.success(!this.value ? '收藏成功' : '取消收藏')
+      } catch (error) {
+        this.$toast('操作失败，请重试')
       }
+      this.loading = false
+    }
   }
 }
-</script> 
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->

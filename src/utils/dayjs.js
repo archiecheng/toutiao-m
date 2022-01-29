@@ -26,10 +26,10 @@ dayjs.locale('zh-cn') // 全局使用
 // 管道符前面的表达式结果会作为参数传递到过滤器函数中
 // 过滤器的返回值会渲染到使用过滤器的模板位置
 Vue.filter('relativeTime', value => {
-    return dayjs().to(dayjs(value))
+  return dayjs().to(dayjs(value))
 })
 
-//dayjs() 获取当前最新事件
+// dayjs() 获取当前最新事件
 // console.log(dayjs().format('YYYY-MM-DD'))
 
 // console.log(dayjs().from(dayjs('1990')))

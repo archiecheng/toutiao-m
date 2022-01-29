@@ -23,15 +23,15 @@
       <!-- /搜索栏 -->
 
       <!-- 搜索结果 -->
-      <search-result 
-        v-if="isResultShow" 
+      <search-result
+        v-if="isResultShow"
         :search-text="searchText"
         />
       <!-- /搜索结果 -->
 
       <!-- 联想建议 -->
-      <search-suggestion 
-        v-else-if="searchText" 
+      <search-suggestion
+        v-else-if="searchText"
         :search-text="searchText"
         @search="onSearch"
         />
@@ -54,15 +54,15 @@ export default {
   props: {},
   // 局部注册的组件
   components: {
-      SearchHistory,
-      SearchSuggestion,
-      SearchResult
+    SearchHistory,
+    SearchSuggestion,
+    SearchResult
   },
   // 组件状态值
   data () {
     return {
-         searchText: '',
-         isResultShow:false // 控制搜索结果的展示
+      searchText: '',
+      isResultShow: false // 控制搜索结果的展示
     }
   },
   // 计算属性
@@ -71,13 +71,13 @@ export default {
   watch: {},
   // 组件方法
   methods: {
-      onSearch(val) {
-        this.searchText = val
-        this.isResultShow = true
-        },
-      onCancel() {
-        this.$router.back()
-        },
+    onSearch (val) {
+      this.searchText = val
+      this.isResultShow = true
+    },
+    onCancel () {
+      this.$router.back()
+    }
   }
 }
 </script>

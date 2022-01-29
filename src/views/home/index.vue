@@ -9,7 +9,7 @@
   <div class="home-container">
     <!-- 导航栏 -->
         <van-nav-bar class="page-nav-bar" fixed>
-          <van-button 
+          <van-button
             class="search-btn"
             slot="title"
             type="info"
@@ -24,7 +24,7 @@
         <!-- 频道列表 -->
         <!-- 通过 v-model 绑定当前激活标签对应的索引值，默认情况下启用第一个标签 -->
         <van-tabs class="channel-tabs" v-model="active" animated swipeable>
-          <van-tab 
+          <van-tab
             :title="channel.name"
             v-for="channel in channels"
             :key = "channel.id"
@@ -34,9 +34,9 @@
           <!-- / 文章列表 -->
           </van-tab>
           <div slot="nav-right" class="placeholder"></div>
-          <div 
-            slot="nav-right" 
-            class="hamburger-btn" 
+          <div
+            slot="nav-right"
+            class="hamburger-btn"
             @click="isChannelEditShow = true">
             <i class="toutiao toutiao-gengduo"></i>
           </div>
@@ -51,8 +51,8 @@
           :style="{ height: '100%' }"
           close-icon-position="top-left"
         >
-        <channel-edit 
-          :my-channels="channels" 
+        <channel-edit
+          :my-channels="channels"
           :active="active"
           @update-active="onUpdateActive"
         />
@@ -92,7 +92,7 @@ export default {
   },
   // 侦听器
   watch: {},
-  created() {
+  created () {
     this.loadChannels()
   },
   // 组件方法
@@ -129,7 +129,7 @@ export default {
       // 关闭编辑频道弹层
       this.isChannelEditShow = isChannelEditShow
     }
-  },
+  }
 }
 </script>
 

@@ -6,15 +6,15 @@
  * @FilePath: /Projects/toutiao-m/src/components/article-item/index.vue
 -->
 <template>
-  <van-cell 
-    class="article-item" 
+  <van-cell
+    class="article-item"
     :to="`/article/${article.art_id}`"
   >
     <div slot="title" class="title van-multi-ellipsis--l2">{{ article.title }}</div>
     <div slot="label">
       <div class="cover-wrap" v-if="article.cover.type === 3">
-        <div 
-            class="cover-item" 
+        <div
+            class="cover-item"
             v-for="(img,index) in article.cover.images"
             :key = "index"
           >
@@ -47,10 +47,10 @@ export default {
   name: 'ArticleItem',
   // 组件参数 接收来自父组件的数据
   props: {
-      article: {
-          type: Object,
-          required: true
-      }
+    article: {
+      type: Object,
+      required: true
+    }
   },
   // 局部注册的组件
   components: {},
@@ -65,7 +65,7 @@ export default {
   // 组件方法
   methods: {}
 }
-</script> 
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->

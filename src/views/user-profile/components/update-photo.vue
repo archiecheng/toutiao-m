@@ -16,25 +16,25 @@
 </template>
 
 <script>
-import 'cropperjs/dist/cropper.css';
-import Cropper from 'cropperjs';
+import 'cropperjs/dist/cropper.css'
+import Cropper from 'cropperjs'
 import { updateUserPhoto } from '@/api/user'
 export default {
   // 组件名称
   name: 'UpdatePhoto',
   // 组件参数 接收来自父组件的数据
   props: {
-      img: {
-          type: [String,Object],
-          required:true
-      }
+    img: {
+      type: [String, Object],
+      required: true
+    }
   },
   // 局部注册的组件
   components: {},
   // 组件状态值
   data () {
     return {
-        cropper: null
+      cropper: null
     }
   },
   // 计算属性
@@ -45,59 +45,58 @@ export default {
   mounted () {
     const image = this.$refs.img
     this.cropper = new Cropper(image, {
-        viewMode: 1,    // 
-        dragMode: 'move', // 默认拖动模式
-        aspectRatio: 1,    // 截图比例 默认是 16 / 9
-        autoCropArea: 1,    // 自动截取区域
-        cropBoxMovable: false,
-        cropBoxResizable: false,
-        background: false,
-        movable: true
-        })
+      viewMode: 1, //
+      dragMode: 'move', // 默认拖动模式
+      aspectRatio: 1, // 截图比例 默认是 16 / 9
+      autoCropArea: 1, // 自动截取区域
+      cropBoxMovable: false,
+      cropBoxResizable: false,
+      background: false,
+      movable: true
+    })
   },
   // 组件方法
   methods: {
-      onConfirm () {
-        // 基于服务端的裁切 使用 getData 方法获取裁切参数
-        //   console.log(this.cropper.getData())
-        // 纯客户端的裁切 使用 getCroppedCanvas 获取裁切的文件对象
-        this.cropper.getCroppedCanvas().toBlob(blob => {
-            this.updateUserPhoto(blob)
-        })
-      },
-      async updateUserPhoto (blob) {
-          this.$toast.loading({
-                  message:'保存中...',
-                  forbidClick:true,  // 禁止背景点击
-                  duration:0 // 持续展示
-              })
-              try {
-                  // 如果接口要求 Content-Type 是 application/json
-                // 则传递普通JavaScript对象
-                // 错误的用法
-                // updateUserPhoto({
-                //     photo:blob
-                // })
+    onConfirm () {
+      // 基于服务端的裁切 使用 getData 方法获取裁切参数
+      //   console.log(this.cropper.getData())
+      // 纯客户端的裁切 使用 getCroppedCanvas 获取裁切的文件对象
+      this.cropper.getCroppedCanvas().toBlob(blob => {
+        this.updateUserPhoto(blob)
+      })
+    },
+    async updateUserPhoto (blob) {
+      this.$toast.loading({
+        message: '保存中...',
+        forbidClick: true, // 禁止背景点击
+        duration: 0 // 持续展示
+      })
+      try {
+        // 如果接口要求 Content-Type 是 application/json
+        // 则传递普通JavaScript对象
+        // 错误的用法
+        // updateUserPhoto({
+        //     photo:blob
+        // })
 
-                // 如果接口要求 Content-Type 是 multipart/form-data
-                // 则必须传递 FormData 对象
-                const formData = new FormData()
-                formData.append('photo',blob)
-                const { data } = await updateUserPhoto(formData)
-                // 关闭弹出层
-                this.$emit('close')
-                // 更新视图
-                this.$emit('update-photo',data.data.photo)
-                // 提示成功
-                this.$toast.success('更新成功')
-              } catch (error) {
-                  this.$toast.fail('更新失败')
-              }
-          
+        // 如果接口要求 Content-Type 是 multipart/form-data
+        // 则必须传递 FormData 对象
+        const formData = new FormData()
+        formData.append('photo', blob)
+        const { data } = await updateUserPhoto(formData)
+        // 关闭弹出层
+        this.$emit('close')
+        // 更新视图
+        this.$emit('update-photo', data.data.photo)
+        // 提示成功
+        this.$toast.success('更新成功')
+      } catch (error) {
+        this.$toast.fail('更新失败')
       }
+    }
   }
 }
-</script> 
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->

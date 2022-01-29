@@ -52,7 +52,7 @@
             @input="article.is_followed = $event"
             如果需要修改 v-model 的规则名称，可以通过子组件的 model 属性来配置修改
           -->
-          <follow-user 
+          <follow-user
             :is-followed="article.is_followed"
             class="follow-btn"
             :user-id="article.aut_id"
@@ -80,14 +80,14 @@
         </van-cell>
         <!-- /用户信息 -->
         <!-- 文章内容 -->
-        <div 
-          class="article-content markdown-body" 
+        <div
+          class="article-content markdown-body"
           v-html="article.content"
           ref="article-content"
           ></div>
         <van-divider>正文结束</van-divider>
         <!-- 文章评论列表 -->
-        <comment-list 
+        <comment-list
           :source="article.art_id"
           @onload-success="totalCommentCount = $event.total_count"
           :list="commentList"
@@ -109,12 +109,12 @@
             :badge="totalCommentCount"
             color="#777"
           />
-          <collect-article 
+          <collect-article
             class="btn-item"
             v-model="article.is_collected"
             :article-id="article.art_id"
           />
-          <like-article 
+          <like-article
             class="btn-item"
             v-model="article.attitude"
             :article-id="article.art_id"
@@ -123,11 +123,11 @@
         </div>
         <!-- /底部区域 -->
         <!-- 发布评论的弹出层 -->
-        <van-popup 
-          v-model="isPostShow" 
-          position="bottom" 
+        <van-popup
+          v-model="isPostShow"
+          position="bottom"
         >
-        <comment-post 
+        <comment-post
           :target="article.art_id"
           @post-success="onPostSuccess"
         />
@@ -147,7 +147,7 @@
       <div class="error-wrap" v-else>
         <van-icon name="failure" />
         <p class="text">内容加载失败！</p>
-        <van-button 
+        <van-button
           class="retry-btn"
           @click="loadArticle"
           >点击重试</van-button>
@@ -159,7 +159,7 @@
 
 <script>
 import { getArticleById } from '@/api/article'
-import { ImagePreview } from 'vant';
+import { ImagePreview } from 'vant'
 import FollowUser from '@/components/follow-user'
 import CollectArticle from '@/components/collect-article'
 import LikeArticle from '@/components/like-article'
@@ -172,7 +172,7 @@ export default {
   // 组件参数 接收来自父组件的数据
   props: {
     articleId: {
-      type: [Number,String,Object],
+      type: [Number, String, Object],
       required: true
     }
   },
@@ -188,12 +188,12 @@ export default {
   data () {
     return {
       article: {}, // 文章详情
-      loading:true, // 加载中的loading状态
+      loading: true, // 加载中的loading状态
       errorStatus: 0, // 失败的状态码
-      followLoading:false,
-      totalCommentCount:0,
-      isPostShow:false, // 控制发布评论的状态
-      commentList:[] // 评论列表
+      followLoading: false,
+      totalCommentCount: 0,
+      isPostShow: false, // 控制发布评论的状态
+      commentList: [] // 评论列表
     }
   },
   // 计算属性
@@ -216,14 +216,14 @@ export default {
         // console.log(this.$refs['article-content'])
         setTimeout(() => {
           this.previewImage()
-        }, 0);
+        }, 0)
         // 请求成功，关闭loading
-        this.loading = false 
+        this.loading = false
       } catch (error) {
         if (error.response && error.response.status === 404) {
           this.errorStatus = 404
         }
-        console.log('获取数据失败',error)
+        console.log('获取数据失败', error)
       }
       // 无论请求成功还是失败，都要关闭loading
       this.loading = false
@@ -234,17 +234,17 @@ export default {
       const imgs = articleContent.querySelectorAll('img')
       // 获取所有 img 地址
       const images = []
-      imgs.forEach((img,index) => {
-          images.push(img.src)
-          // 给每个image添加点击事件，在处理函数中调用预览
-          img.onclick = () => {
-            ImagePreview({
-              // 预览的图片地址数组
-              images,
-              // 起始位置，从0开始
-              startPosition: index
-            });
-          }
+      imgs.forEach((img, index) => {
+        images.push(img.src)
+        // 给每个image添加点击事件，在处理函数中调用预览
+        img.onclick = () => {
+          ImagePreview({
+            // 预览的图片地址数组
+            images,
+            // 起始位置，从0开始
+            startPosition: index
+          })
+        }
       })
     },
     onPostSuccess (data) {
@@ -254,9 +254,9 @@ export default {
       this.commentList.unshift(data.new_obj)
     }
 
-  },
+  }
 }
-</script> 
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->

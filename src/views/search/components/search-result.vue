@@ -15,10 +15,10 @@
         error-text="加载失败，请点击重试"
         :error.sync="error"
       >
-      <van-cell 
-        v-for="(article,index) in list" 
-        :key="index" 
-        :title="article.title" 
+      <van-cell
+        v-for="(article,index) in list"
+        :key="index"
+        :title="article.title"
       />
 </van-list>
   </div>
@@ -32,8 +32,8 @@ export default {
   // 组件参数 接收来自父组件的数据
   props: {
     searchText: {
-      type:String,
-      required:true
+      type: String,
+      required: true
     }
   },
   // 局部注册的组件
@@ -44,9 +44,9 @@ export default {
       list: [],
       loading: false,
       finished: false,
-      page:1,
-      perPage:20,
-      error:false
+      page: 1,
+      perPage: 20,
+      error: false
     }
   },
   // 计算属性
@@ -55,11 +55,11 @@ export default {
   watch: {},
   // 组件方法
   methods: {
-    async onLoad() {
+    async onLoad () {
       try {
         // 1. 请求获取数据
         const { data } = await getSearchResult({
-          page: this.page,   // 页码
+          page: this.page, // 页码
           per_page: this.perPage, // 每页大小
           q: this.searchText // 查询关键词
         })
@@ -86,7 +86,7 @@ export default {
     }
   }
 }
-</script> 
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->

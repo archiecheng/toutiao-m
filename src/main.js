@@ -21,16 +21,16 @@ import './styles/index.less'
 // 动态设置 REM 基准值
 import 'amfe-flexible'
 
-// 注册使用 Vant 组件库
-Vue.use(Vant)
-
 // 加载 dayjs 初始化配置
 import './utils/dayjs'
+
+// 注册使用 Vant 组件库
+Vue.use(Vant)
 
 Vue.config.productionTip = false
 
 new Vue({
-    router,
-    store,
-    render: h => h(App)
+  router,
+  store,
+  render: h => h(App)
 }).$mount('#app')

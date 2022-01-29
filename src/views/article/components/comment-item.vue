@@ -46,14 +46,14 @@ export default {
   name: 'CommentItem',
   components: {},
   props: {
-      comment: {
-          type:Object,
-          required:true
-      }
+    comment: {
+      type: Object,
+      required: true
+    }
   },
   data () {
     return {
-        commentLoading:false
+      commentLoading: false
     }
   },
   computed: {},
@@ -61,24 +61,24 @@ export default {
   created () {},
   mounted () {},
   methods: {
-      async onCommentLike () {
-          this.commentLoading = true
-          try {
-              if (this.comment.is_liking) {
-                //   已赞，取消点赞
-                  await deleteCommentLike(this.comment.com_id)
-                  this.comment.like_count--
-              } else {
-                //   没有点赞，添加点赞
-                await addCommentLike(this.comment.com_id)
-                this.comment.like_count++
-              }
-              this.comment.is_liking = !this.comment.is_liking
-          } catch (error) {
-              this.$toast("操作失败，请重试")
-          }
-          this.commentLoading = false
+    async onCommentLike () {
+      this.commentLoading = true
+      try {
+        if (this.comment.is_liking) {
+          //   已赞，取消点赞
+          await deleteCommentLike(this.comment.com_id)
+          this.comment.like_count--
+        } else {
+          //   没有点赞，添加点赞
+          await addCommentLike(this.comment.com_id)
+          this.comment.like_count++
+        }
+        this.comment.is_liking = !this.comment.is_liking
+      } catch (error) {
+        this.$toast('操作失败，请重试')
       }
+      this.commentLoading = false
+    }
   }
 }
 </script>

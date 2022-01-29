@@ -2,7 +2,7 @@
  * @Author: Archie
  * @Date: 2022-01-28 20:03:59
  * @LastEditors: Archie
- * @LastEditTime: 2022-01-28 20:19:08
+ * @LastEditTime: 2022-01-29 21:26:21
  * @FilePath: /Projects/toutiao-m/src/components/follow-user/index.vue
 -->
 <template>
@@ -28,27 +28,27 @@
 </template>
 
 <script>
-import { addFollow, deleteFollow} from '@/api/user'
+import { addFollow, deleteFollow } from '@/api/user'
 export default {
   // 组件名称
   name: 'FollowUser',
   // 组件参数 接收来自父组件的数据
   props: {
-      isFollowed: {
-          type:Boolean,
-          required:true
-      },
-      userId: {
-          type:[Number,String,Object],
-          required:true
-      }
+    isFollowed: {
+      type: Boolean,
+      required: true
+    },
+    userId: {
+      type: [Number, String, Object],
+      required: true
+    }
   },
   // 局部注册的组件
   components: {},
   // 组件状态值
   data () {
     return {
-        loading: false
+      loading: false
     }
   },
   // 计算属性
@@ -57,20 +57,20 @@ export default {
   watch: {},
   // 组件方法
   methods: {
-          async onFollow () {
+    async onFollow () {
       try {
         // 展示关注按钮的loading状态
         this.loading = true
         if (this.isFollowed) {
           // 已关注，取消关注
-          const { data } = await deleteFollow(this.userId)
+          await deleteFollow(this.userId)
         } else {
           // 未关注，添加关注
-          const { data } = await addFollow(this.userId)
+          await addFollow(this.userId)
         }
         // 更新视图状态
         // this.article.is_followed = !this.article.is_followed
-        this.$emit('update-is_followed',!this.isFollowed)
+        this.$emit('update-is_followed', !this.isFollowed)
       } catch (error) {
         let message = '操作失败，请重试!'
         if (error.response && error.response.status === 400) {
@@ -83,7 +83,7 @@ export default {
     }
   }
 }
-</script> 
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->

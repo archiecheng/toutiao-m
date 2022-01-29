@@ -2,7 +2,7 @@
  * @Author: Archie
  * @Date: 2022-01-28 21:09:56
  * @LastEditors: Archie
- * @LastEditTime: 2022-01-28 21:27:36
+ * @LastEditTime: 2022-01-29 21:26:30
  * @FilePath: /Projects/toutiao-m/src/components/like-article/index.vue
 -->
 <template>
@@ -25,21 +25,21 @@ export default {
   name: 'LikeArticle',
   // 组件参数 接收来自父组件的数据
   props: {
-      value:{
-          type:Number,
-          required:true
-      },
-      articleId:{
-          type:[Number,String,Object],
-          reuqired:true
-      }
+    value: {
+      type: Number,
+      required: true
+    },
+    articleId: {
+      type: [Number, String, Object],
+      reuqired: true
+    }
   },
   // 局部注册的组件
   components: {},
   // 组件状态值
   data () {
     return {
-        loading:false
+      loading: false
     }
   },
   // 计算属性
@@ -48,29 +48,29 @@ export default {
   watch: {},
   // 组件方法
   methods: {
-      async onCollect () {
-          this.loading = true
-          try {
-              let status = -1
-              if (this.value === 1) {
-                //   已点赞，取消点赞
-                await deleteLike(this.articleId)
-              } else {
-                //   没有点赞，添加点赞
-                 await addLike(this.articleId)
-                 status = 1
-              }
-            //   更新视图
-              this.$emit('input',status)
-              this.$toast.success(status == 1 ? '点赞成功' : '取消点赞')
-          } catch (error) {
-              this.$toast.fail('操作失败，请重试!')
-          }
-          this.loading = false
+    async onCollect () {
+      this.loading = true
+      try {
+        let status = -1
+        if (this.value === 1) {
+          //   已点赞，取消点赞
+          await deleteLike(this.articleId)
+        } else {
+          //   没有点赞，添加点赞
+          await addLike(this.articleId)
+          status = 1
+        }
+        //   更新视图
+        this.$emit('input', status)
+        this.$toast.success(status === 1 ? '点赞成功' : '取消点赞')
+      } catch (error) {
+        this.$toast.fail('操作失败，请重试!')
       }
+      this.loading = false
+    }
   }
 }
-</script> 
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->

@@ -15,19 +15,19 @@
       @click-left="$router.back()"
     />
     <!-- /导航栏 -->
-    <input 
-      type="file" 
-      hidden 
+    <input
+      type="file"
+      hidden
       ref="file"
       @change="onFileChange"
     >
     <!-- 个人信息 -->
-    <van-cell 
-      title="头像" 
-      is-link 
+    <van-cell
+      title="头像"
+      is-link
       center
       @click="$refs.file.click()"
-      > 
+      >
       <van-image
         class="avatar"
         round
@@ -35,28 +35,28 @@
         :src="user.photo"
       />
     </van-cell>
-    <van-cell 
-      title="昵称" 
-      :value="user.name" 
+    <van-cell
+      title="昵称"
+      :value="user.name"
       is-link
       @click=" isUpdateNameShow = true"
     />
-    <van-cell 
-      title="性别" 
-      :value=" user.gender === 0 ? '男' : '女' " 
+    <van-cell
+      title="性别"
+      :value=" user.gender === 0 ? '男' : '女' "
       is-link
       @click=" isUpdateGenderShow = true"
     />
-    <van-cell 
-      title="生日" 
-      :value="user.birthday" 
+    <van-cell
+      title="生日"
+      :value="user.birthday"
       is-link
       @click=" isUpdateBirthdayShow = true"
     />
     <!-- /个人信息 -->
     <!-- 编辑昵称 -->
-    <van-popup 
-      style="height:100%" 
+    <van-popup
+      style="height:100%"
       v-model="isUpdateNameShow"
       position="bottom"
     >
@@ -68,7 +68,7 @@
     </van-popup>
     <!-- /编辑昵称 -->
     <!-- 编辑性别 -->
-    <van-popup 
+    <van-popup
       v-model="isUpdateGenderShow"
       position="bottom"
     >
@@ -80,11 +80,11 @@
     </van-popup>
     <!-- /编辑性别 -->
     <!-- 编辑生日 -->
-    <van-popup 
+    <van-popup
       v-model="isUpdateBirthdayShow"
       position="bottom"
     >
-    <update-birthday 
+    <update-birthday
       v-if="isUpdateBirthdayShow"
       v-model="user.birthday"
       @close="isUpdateBirthdayShow = false"
@@ -92,13 +92,13 @@
     </van-popup>
     <!-- /编辑生日 -->
     <!-- 编辑头像 -->
-    <van-popup 
+    <van-popup
       v-model="isUpdatePhotoShow"
       position="bottom"
       style="height:100%"
     >
-    <update-photo 
-      :img="img" 
+    <update-photo
+      :img="img"
       @close="isUpdatePhotoShow = false"
       @update-photo="user.photo = $event"
     />
@@ -126,15 +126,15 @@ export default {
     UpdatePhoto
   },
   // 组件状态值
-  
+
   data () {
     return {
-      user:{}, // 个人信息
-      isUpdateNameShow:false,
-      isUpdateGenderShow:false,
-      isUpdateBirthdayShow:false,
-      isUpdatePhotoShow:false,
-      img:null // 预览的图片
+      user: {}, // 个人信息
+      isUpdateNameShow: false,
+      isUpdateGenderShow: false,
+      isUpdateBirthdayShow: false,
+      isUpdatePhotoShow: false,
+      img: null // 预览的图片
     }
   },
   // 计算属性
@@ -168,7 +168,7 @@ export default {
     }
   }
 }
-</script> 
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->

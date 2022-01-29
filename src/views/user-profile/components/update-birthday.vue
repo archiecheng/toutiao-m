@@ -7,7 +7,7 @@
 -->
 <template>
   <div class="update-birthday">
-      <!-- 
+      <!--
             currentDate : 双向绑定了日期选择器
                             设置日期选择器的默认值
                             同步日期选择器选择的日期
@@ -34,19 +34,19 @@ export default {
   name: 'UpdateBirthday',
   // 组件参数 接收来自父组件的数据
   props: {
-      value: {
-          type:String,
-          required:true
-      }
+    value: {
+      type: String,
+      required: true
+    }
   },
   // 局部注册的组件
   components: {},
   // 组件状态值
   data () {
     return {
-        minDate: new Date(1970, 0, 1),
-        maxDate: new Date(),
-        currentDate: new Date(this.value)
+      minDate: new Date(1970, 0, 1),
+      maxDate: new Date(),
+      currentDate: new Date(this.value)
     }
   },
   // 计算属性
@@ -55,31 +55,31 @@ export default {
   watch: {},
   // 组件方法
   methods: {
-        async onConfirm () {
-          try {
-              this.$toast.loading({
-                  message:'保存中...',
-                  forbidClick:true,  // 禁止背景点击
-                  duration:0 // 持续展示
-              })
-              const currentDate = dayjs(this.currentDate).format('YYYY-MM-DD')
-              await updateUserProfile({
-                  birthday:currentDate
-              })
-            // 更新视图
-            this.$emit('input',currentDate)
-            // 关闭弹层
-            this.$emit('close')
-            // 提示成功
-            this.$toast.success('更新成功')
-          } catch (error) {
-              this.$toast.fail('更新失败')
-          }
-      },
+    async onConfirm () {
+      try {
+        this.$toast.loading({
+          message: '保存中...',
+          forbidClick: true, // 禁止背景点击
+          duration: 0 // 持续展示
+        })
+        const currentDate = dayjs(this.currentDate).format('YYYY-MM-DD')
+        await updateUserProfile({
+          birthday: currentDate
+        })
+        // 更新视图
+        this.$emit('input', currentDate)
+        // 关闭弹层
+        this.$emit('close')
+        // 提示成功
+        this.$toast.success('更新成功')
+      } catch (error) {
+        this.$toast.fail('更新失败')
+      }
+    }
 
   }
 }
-</script> 
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->

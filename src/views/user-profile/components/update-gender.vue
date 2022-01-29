@@ -26,18 +26,18 @@ export default {
   name: 'UpdateGender',
   // 组件参数 接收来自父组件的数据
   props: {
-      value: {
-          type:Number,
-          required:true
-      }
+    value: {
+      type: Number,
+      required: true
+    }
   },
   // 局部注册的组件
   components: {},
   // 组件状态值
   data () {
     return {
-        columns: ['男', '女'],
-        localGender:this.value
+      columns: ['男', '女'],
+      localGender: this.value
     }
   },
   // 计算属性
@@ -46,33 +46,33 @@ export default {
   watch: {},
   // 组件方法
   methods: {
-      async onConfirm () {
-          try {
-              this.$toast.loading({
-                  message:'保存中...',
-                  forbidClick:true,  // 禁止背景点击
-                  duration:0 // 持续展示
-              })
-              const localGender = this.localGender
-              await updateUserProfile({
-                  gender:localGender
-              })
-            // 更新视图
-            this.$emit('input',localGender)
-            // 关闭弹层
-            this.$emit('close')
-            // 提示成功
-            this.$toast.success('更新成功')
-          } catch (error) {
-              this.$toast.fail('更新失败')
-          }
-      },
-      onPickerChange (picker,value,index) {
-          this.localGender = index
+    async onConfirm () {
+      try {
+        this.$toast.loading({
+          message: '保存中...',
+          forbidClick: true, // 禁止背景点击
+          duration: 0 // 持续展示
+        })
+        const localGender = this.localGender
+        await updateUserProfile({
+          gender: localGender
+        })
+        // 更新视图
+        this.$emit('input', localGender)
+        // 关闭弹层
+        this.$emit('close')
+        // 提示成功
+        this.$toast.success('更新成功')
+      } catch (error) {
+        this.$toast.fail('更新失败')
       }
+    },
+    onPickerChange (picker, value, index) {
+      this.localGender = index
+    }
   }
 }
-</script> 
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!--使用了scoped属性之后，父组件的style样式将不会渗透到子组件中，-->

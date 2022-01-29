@@ -91,12 +91,23 @@ export const getUserProfile = (target) => {
 }
 
 /*
-      更新户的个人资料
+      更新用户的个人资料
     */
 export const updateUserProfile = (data) => {
     return request({
         method: 'PATCH',
         url: '/v1_0/user/profile',
+        data
+    })
+}
+
+/*
+      更新用户的照片资料
+    */
+export const updateUserPhoto = (data) => {
+    return request({
+        method: 'PATCH',
+        url: '/v1_0/user/photo',
         data
     })
 }

@@ -2,7 +2,7 @@
  * @Author: Archie
  * @Date: 2022-01-29 14:35:52
  * @LastEditors: Archie
- * @LastEditTime: 2022-01-29 16:20:31
+ * @LastEditTime: 2022-01-29 21:09:31
  * @FilePath: /Projects/toutiao-m/src/views/user-profile/index.vue
 -->
 <template>
@@ -15,8 +15,19 @@
       @click-left="$router.back()"
     />
     <!-- /导航栏 -->
+    <input 
+      type="file" 
+      hidden 
+      ref="file"
+      @change="onFileChange"
+    >
     <!-- 个人信息 -->
-    <van-cell title="头像" is-link > 
+    <van-cell 
+      title="头像" 
+      is-link 
+      center
+      @click="$refs.file.click()"
+      > 
       <van-image
         class="avatar"
         round
@@ -80,6 +91,19 @@
     />
     </van-popup>
     <!-- /编辑生日 -->
+    <!-- 编辑头像 -->
+    <van-popup 
+      v-model="isUpdatePhotoShow"
+      position="bottom"
+      style="height:100%"
+    >
+    <update-photo 
+      :img="img" 
+      @close="isUpdatePhotoShow = false"
+      @update-photo="user.photo = $event"
+    />
+    </van-popup>
+    <!-- /编辑头像 -->
   </div>
 </template>
 
@@ -88,6 +112,7 @@ import { getUserProfile } from '@/api/user'
 import UpdateName from './components/update-name'
 import UpdateGender from './components/update-gender'
 import UpdateBirthday from './components/update-birthday'
+import UpdatePhoto from './components/update-photo'
 export default {
   // 组件名称
   name: 'UserProfile',
@@ -97,7 +122,8 @@ export default {
   components: {
     UpdateName,
     UpdateGender,
-    UpdateBirthday
+    UpdateBirthday,
+    UpdatePhoto
   },
   // 组件状态值
   
@@ -106,7 +132,9 @@ export default {
       user:{}, // 个人信息
       isUpdateNameShow:false,
       isUpdateGenderShow:false,
-      isUpdateBirthdayShow:false
+      isUpdateBirthdayShow:false,
+      isUpdatePhotoShow:false,
+      img:null // 预览的图片
     }
   },
   // 计算属性
@@ -126,6 +154,17 @@ export default {
       } catch (error) {
         this.$toast('数据获取失败')
       }
+    },
+    onFileChange () {
+      // 获取文件对象
+      const file = this.$refs.file.files[0]
+      // 基于文章对象获取 blob 数据
+      this.img = window.URL.createObjectURL(file)
+      // 展示预览图片弹出层
+      this.isUpdatePhotoShow = true
+      // file-input 如果选了同一个文件不会触发change事件
+      // 解决办法就是每次使用完毕，把它的value清空
+      this.$refs.file.value = ''
     }
   }
 }
